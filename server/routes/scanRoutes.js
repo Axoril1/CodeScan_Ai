@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Scan = require('../models/Scan');
-
+const { analyzeCode } = require('../services/groqService');
 
 router.post('/scan', async (req, res) => {
   try {
@@ -11,24 +11,17 @@ router.post('/scan', async (req, res) => {
       return res.status(400).json({ message: 'No code provided' });
     }
 
-    
-    const result = {
-      bugs: ['No bugs found yet — AI coming in Phase 3'],
-      suggestions: ['AI suggestions coming in Phase 3'],
-      complexity: 'Medium',
-      score: 75,
-    };
+    const result = await analyzeCode(code, language || 'javascript');
 
-    
-    const scan = new Scan({ code, language, result });
+    const scan = new Scan({ code, language: language || 'javascript', result });
     await scan.save();
 
     res.status(200).json({ success: true, data: scan });
   } catch (error) {
+    console.error('Scan error:', error.message);
     res.status(500).json({ message: error.message });
   }
 });
-
 
 router.get('/history', async (req, res) => {
   try {
