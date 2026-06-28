@@ -24,14 +24,13 @@ Respond with exactly this JSON structure:
 `;
 
   const response = await groq.chat.completions.create({
-    model: 'llama3-8b-8192',
+    model: 'llama-3.3-70b-versatile',
     messages: [{ role: 'user', content: prompt }],
     temperature: 0.3,
   });
 
   const raw = response.choices[0].message.content.trim();
 
-  // Clean response in case AI adds backticks
   const cleaned = raw.replace(/```json|```/g, '').trim();
 
   const result = JSON.parse(cleaned);
