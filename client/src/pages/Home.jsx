@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import Editor from '@monaco-editor/react';
 import axios from 'axios';
@@ -6,12 +7,13 @@ import ResultCard from '../components/ResultCard';
 const LANGUAGES = ['javascript', 'python', 'java', 'cpp', 'typescript', 'go', 'rust'];
 
 const LoadingSkeleton = () => (
-  <div style={{ background: '#161b22', border: '1px solid #30363d', borderRadius: '12px', padding: '1.5rem', marginTop: '1.5rem' }}>
-    <div className="pulse" style={{ background: '#21262d', height: '20px', borderRadius: '6px', marginBottom: '1rem', width: '40%' }} />
-    <div className="pulse" style={{ background: '#21262d', height: '10px', borderRadius: '6px', marginBottom: '0.5rem' }} />
-    <div className="pulse" style={{ background: '#21262d', height: '10px', borderRadius: '6px', marginBottom: '1.5rem', width: '70%' }} />
-    <div className="pulse" style={{ background: '#21262d', height: '60px', borderRadius: '6px', marginBottom: '0.75rem' }} />
-    <div className="pulse" style={{ background: '#21262d', height: '60px', borderRadius: '6px' }} />
+  <div className="dragon-border" style={{ background: '#0d0500', padding: '1.5rem', marginTop: '1.5rem' }}>
+    <p className="pulse" style={{ color: '#c8860a', fontWeight: 800, fontSize: '0.9rem', letterSpacing: '1px', textAlign: 'center' }}>
+      🐼 Po is reviewing your code... Skadoosh!
+    </p>
+    {[100, 70, 100, 60].map((w, i) => (
+      <div key={i} className="pulse" style={{ background: 'rgba(200,134,10,0.1)', border: '1px solid rgba(200,134,10,0.2)', height: '14px', borderRadius: '4px', marginTop: '0.75rem', width: `${w}%` }} />
+    ))}
   </div>
 );
 
@@ -47,98 +49,120 @@ const Home = () => {
   };
 
   return (
-    <div style={{ maxWidth: '900px', margin: '0 auto', padding: '2rem 1rem' }}>
+    <div style={{ maxWidth: '920px', margin: '0 auto', padding: '2rem 1rem' }}>
 
-      {/* Header */}
-      <div style={{ marginBottom: '1.5rem' }}>
-        <h2 style={{ fontSize: '1.6rem', fontWeight: 700, marginBottom: '0.4rem' }}>
-          Code Analyzer
-        </h2>
-        <p style={{ color: '#8b949e', fontSize: '0.9rem' }}>
-          Paste your code and get instant AI-powered feedback on bugs, suggestions, and quality.
-        </p>
+      {/* Hero */}
+      <div className="dragon-border" style={{
+        background: 'linear-gradient(135deg, #2d1200 0%, #1a0800 100%)',
+        padding: '1.5rem',
+        marginBottom: '1.5rem',
+        position: 'relative',
+        overflow: 'hidden',
+      }}>
+        <div style={{ position: 'absolute', right: '-10px', top: '-10px', fontSize: '5rem', opacity: 0.06, transform: 'rotate(15deg)', pointerEvents: 'none' }}>🐉</div>
+        <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '4px', background: 'linear-gradient(180deg, #ffe066, #c8860a, #ffe066)' }} />
+        <div style={{ paddingLeft: '1rem' }}>
+          <p style={{ fontSize: '0.65rem', color: '#c8860a', fontWeight: 800, letterSpacing: '3px', textTransform: 'uppercase', marginBottom: '6px' }}>
+            ⚡ The Dragon Scroll of Code Review
+          </p>
+          <h2 style={{ fontFamily: "'Cinzel', serif", fontSize: '1.4rem', fontWeight: 900, color: '#ffe066', lineHeight: 1.3, marginBottom: '6px', textShadow: '0 0 10px rgba(255,200,50,0.3)' }}>
+            There is no secret ingredient.<br />Your code just needs review.
+          </h2>
+          <p style={{ fontSize: '0.88rem', color: '#d4a050', fontWeight: 600 }}>
+            Paste your code and let the Dragon Warrior find the bugs. 🥢
+          </p>
+        </div>
       </div>
 
       {/* Controls */}
-      <div style={{ display: 'flex', gap: '0.75rem', marginBottom: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>
+      <div style={{ display: 'flex', gap: '10px', marginBottom: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>
         <select
           value={language}
           onChange={(e) => setLanguage(e.target.value)}
           style={{
-            background: '#21262d',
-            color: '#e6edf3',
-            border: '1px solid #30363d',
-            borderRadius: '6px',
-            padding: '0.5rem 0.75rem',
-            fontSize: '0.9rem',
+            background: 'rgba(200,134,10,0.1)',
+            color: '#ffe066',
+            border: '1px solid #c8860a',
+            borderRadius: '4px',
+            padding: '8px 14px',
+            fontSize: '0.82rem',
+            fontFamily: "'Nunito', sans-serif",
+            fontWeight: 800,
+            letterSpacing: '1px',
             cursor: 'pointer',
           }}
         >
-          {LANGUAGES.map((lang) => <option key={lang} value={lang}>{lang}</option>)}
+          {LANGUAGES.map((lang) => <option key={lang} value={lang} style={{ background: '#1a0a00' }}>⚔️ {lang.toUpperCase()}</option>)}
         </select>
 
         <button
           onClick={handleScan}
           disabled={loading}
           style={{
-            background: loading ? '#21262d' : '#238636',
-            color: loading ? '#8b949e' : '#fff',
-            border: 'none',
-            borderRadius: '6px',
-            padding: '0.5rem 1.25rem',
-            fontSize: '0.9rem',
+            background: loading ? 'rgba(200,134,10,0.1)' : 'linear-gradient(135deg, #c8380a, #8b1a00)',
+            color: loading ? '#c8860a' : '#ffe066',
+            border: '1px solid #c8860a',
+            borderRadius: '4px',
+            padding: '8px 20px',
+            fontSize: '0.85rem',
+            fontWeight: 800,
+            letterSpacing: '1px',
+            textTransform: 'uppercase',
             cursor: loading ? 'not-allowed' : 'pointer',
-            fontWeight: 600,
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.4rem',
           }}
         >
-          {loading ? (
-            <><span className="pulse">⏳</span> Analyzing...</>
-          ) : (
-            '🔍 Analyze Code'
-          )}
+          {loading ? '🐼 Analyzing...' : '🔍 Analyze Code'}
         </button>
 
         <button
           onClick={handleClear}
           style={{
             background: 'transparent',
-            color: '#8b949e',
-            border: '1px solid #30363d',
-            borderRadius: '6px',
-            padding: '0.5rem 1rem',
-            fontSize: '0.9rem',
-            cursor: 'pointer',
+            color: '#c8860a',
+            border: '1px solid rgba(200,134,10,0.4)',
+            borderRadius: '4px',
+            padding: '8px 16px',
+            fontSize: '0.85rem',
+            fontWeight: 800,
+            letterSpacing: '1px',
           }}
         >
-          🗑️ Clear
+          🥢 Clear
         </button>
 
         {result && (
-          <span style={{ color: '#3fb950', fontSize: '0.85rem', marginLeft: 'auto' }}>
-            ✅ Analysis complete
+          <span style={{
+            marginLeft: 'auto',
+            background: 'rgba(0,166,80,0.1)',
+            border: '1px solid #00a650',
+            borderRadius: '4px',
+            padding: '4px 12px',
+            fontSize: '0.8rem',
+            fontWeight: 800,
+            color: '#50d080',
+            letterSpacing: '0.5px',
+          }}>
+            ✅ Skadoosh!
           </span>
         )}
       </div>
 
       {/* Editor */}
-      <div style={{ border: '1px solid #30363d', borderRadius: '8px', overflow: 'hidden' }}>
+      <div className="dragon-border" style={{ overflow: 'hidden', marginBottom: '0.5rem' }}>
         <div style={{
-          background: '#161b22',
-          padding: '0.4rem 1rem',
-          borderBottom: '1px solid #30363d',
-          fontSize: '0.8rem',
-          color: '#8b949e',
+          background: 'linear-gradient(90deg, #2d1200, #1a0800)',
+          padding: '7px 14px',
+          borderBottom: '1px solid #c8860a',
           display: 'flex',
           alignItems: 'center',
-          gap: '0.5rem',
+          gap: '8px',
         }}>
-          <span style={{ color: '#f85149' }}>●</span>
-          <span style={{ color: '#d29922' }}>●</span>
-          <span style={{ color: '#3fb950' }}>●</span>
-          <span style={{ marginLeft: '0.5rem' }}>{language}</span>
+          <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#c8380a', border: '1px solid rgba(255,255,255,0.1)', display: 'inline-block' }} />
+          <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#ffe066', border: '1px solid rgba(255,255,255,0.1)', display: 'inline-block' }} />
+          <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#00a650', border: '1px solid rgba(255,255,255,0.1)', display: 'inline-block' }} />
+          <span style={{ color: '#c8860a', fontSize: '0.72rem', fontWeight: 800, letterSpacing: '2px', marginLeft: '6px', fontFamily: "'JetBrains Mono', monospace" }}>
+            ⚔️ SCROLL OF {language.toUpperCase()}
+          </span>
         </div>
         <Editor
           height="360px"
@@ -151,8 +175,7 @@ const Home = () => {
             minimap: { enabled: false },
             scrollBeyondLastLine: false,
             padding: { top: 12 },
-            lineNumbers: 'on',
-            renderLineHighlight: 'line',
+            fontFamily: 'JetBrains Mono, monospace',
           }}
         />
       </div>
@@ -161,27 +184,20 @@ const Home = () => {
       {error && (
         <div style={{
           marginTop: '1rem',
-          background: '#21262d',
-          borderLeft: '3px solid #f85149',
+          borderLeft: '3px solid #c8380a',
           padding: '0.75rem 1rem',
-          borderRadius: '4px',
-          color: '#f85149',
-          fontSize: '0.9rem',
+          background: 'rgba(200,56,10,0.08)',
+          borderRadius: '0 4px 4px 0',
+          fontSize: '0.88rem',
+          fontWeight: 700,
+          color: '#ff7050',
         }}>
           ⚠️ {error}
         </div>
       )}
 
-      {/* Loading skeleton */}
       {loading && <LoadingSkeleton />}
-
-      {/* Result */}
-      {!loading && result && (
-        <div className="fade-in">
-          <ResultCard result={result} />
-        </div>
-      )}
-
+      {!loading && result && <ResultCard result={result} />}
     </div>
   );
 };

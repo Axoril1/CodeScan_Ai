@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Nunito:wght@600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -5,51 +7,54 @@
 }
 
 body {
-  background-color: #0f1117;
-  color: #e6edf3;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #1a0a00;
+  background-image: repeating-linear-gradient(45deg, rgba(200,134,10,0.04) 0px, rgba(200,134,10,0.04) 1px, transparent 1px, transparent 50%);
+  background-size: 20px 20px;
+  color: #d4a050;
+  font-family: 'Nunito', sans-serif;
   min-height: 100vh;
 }
 
-::-webkit-scrollbar {
-  width: 6px;
-}
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0d0500; }
+::-webkit-scrollbar-thumb { background: #c8860a; border-radius: 3px; }
 
-::-webkit-scrollbar-track {
-  background: #161b22;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #30363d;
-  border-radius: 3px;
-}
-
-/* Smooth transitions */
 button {
+  cursor: pointer;
+  font-family: 'Nunito', sans-serif;
   transition: all 0.2s ease;
 }
 
 button:hover:not(:disabled) {
-  opacity: 0.85;
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  filter: brightness(1.15);
 }
 
-/* Fade in animation */
+button:active:not(:disabled) {
+  transform: translateY(0px);
+}
+
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
+  from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-.fade-in {
-  animation: fadeIn 0.4s ease forwards;
-}
+.fade-in { animation: fadeIn 0.4s ease forwards; }
 
-/* Pulse animation for loading */
 @keyframes pulse {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.4; }
 }
 
-.pulse {
-  animation: pulse 1.5s ease infinite;
+.pulse { animation: pulse 1.2s ease infinite; }
+
+@keyframes goldGlow {
+  0%, 100% { box-shadow: 0 0 8px rgba(200,134,10,0.3); }
+  50% { box-shadow: 0 0 18px rgba(200,134,10,0.6); }
+}
+
+.dragon-border {
+  border: 2px solid #c8860a;
+  border-radius: 6px;
+  box-shadow: 0 0 12px rgba(200,134,10,0.15);
 }
