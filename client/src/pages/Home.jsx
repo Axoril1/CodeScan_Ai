@@ -47,7 +47,6 @@ const Home = () => {
         </p>
       </div>
 
-      {/* Controls */}
       <div style={{ display: 'flex', gap: '0.75rem', marginBottom: '1rem', flexWrap: 'wrap' }}>
         <select
           value={language}
@@ -101,7 +100,6 @@ const Home = () => {
         </button>
       </div>
 
-      {/* Editor */}
       <div style={{ border: '1px solid #30363d', borderRadius: '8px', overflow: 'hidden' }}>
         <Editor
           height="380px"
@@ -118,7 +116,6 @@ const Home = () => {
         />
       </div>
 
-      {/* Error */}
       {error && (
         <div style={{
           marginTop: '1rem',
@@ -133,7 +130,6 @@ const Home = () => {
         </div>
       )}
 
-      {/* Result */}
       <ResultCard result={result} />
     </div>
   );

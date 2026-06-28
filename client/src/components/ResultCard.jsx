@@ -25,7 +25,6 @@ const ResultCard = ({ result }) => {
 
       <ScoreBar score={score} />
 
-      {/* Summary */}
       <div style={{
         background: '#21262d',
         borderRadius: '8px',
@@ -38,7 +37,6 @@ const ResultCard = ({ result }) => {
         {summary}
       </div>
 
-      {/* Complexity */}
       <div style={{ marginBottom: '1.2rem' }}>
         <span style={{ color: '#8b949e', fontSize: '0.85rem' }}>Complexity: </span>
         <span style={{
@@ -50,7 +48,6 @@ const ResultCard = ({ result }) => {
         </span>
       </div>
 
-      {/* Bugs */}
       <div style={{ marginBottom: '1.2rem' }}>
         <h3 style={{ fontSize: '0.95rem', color: '#f85149', marginBottom: '0.5rem' }}>
           🐛 Bugs ({bugs.length})
@@ -74,7 +71,6 @@ const ResultCard = ({ result }) => {
         )}
       </div>
 
-      {/* Suggestions */}
       <div>
         <h3 style={{ fontSize: '0.95rem', color: '#3fb950', marginBottom: '0.5rem' }}>
           💡 Suggestions ({suggestions.length})
