@@ -83,7 +83,7 @@ const History = () => {
             marginBottom: '1rem',
             overflow: 'hidden',
           }}>
-            {/* Card Header */}
+            
             <div
               onClick={() => setExpanded(expanded === scan._id ? null : scan._id)}
               style={{
@@ -97,7 +97,7 @@ const History = () => {
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
-                {/* Language badge */}
+                
                 <span style={{
                   background: '#21262d',
                   color: '#58a6ff',
@@ -111,7 +111,7 @@ const History = () => {
                   {scan.language}
                 </span>
 
-                {/* Score badge */}
+                
                 <span style={{
                   color: getScoreColor(scan.result.score),
                   fontWeight: 700,
@@ -120,7 +120,7 @@ const History = () => {
                   {scan.result.score}/100
                 </span>
 
-                {/* Complexity badge */}
+                
                 <span style={{
                   color: getComplexityColor(scan.result.complexity),
                   fontSize: '0.85rem',
@@ -128,7 +128,7 @@ const History = () => {
                   {scan.result.complexity} complexity
                 </span>
 
-                {/* Bug count */}
+                
                 <span style={{ color: '#f85149', fontSize: '0.85rem' }}>
                   🐛 {scan.result.bugs.length} bug{scan.result.bugs.length !== 1 ? 's' : ''}
                 </span>
@@ -144,11 +144,11 @@ const History = () => {
               </div>
             </div>
 
-            {/* Expanded Content */}
+            
             {expanded === scan._id && (
               <div style={{ borderTop: '1px solid #30363d', padding: '1.25rem' }}>
 
-                {/* Summary */}
+                
                 <div style={{
                   background: '#21262d',
                   borderRadius: '8px',
@@ -161,7 +161,7 @@ const History = () => {
                   {scan.result.summary}
                 </div>
 
-                {/* Bugs */}
+               
                 <div style={{ marginBottom: '1rem' }}>
                   <h4 style={{ color: '#f85149', fontSize: '0.9rem', marginBottom: '0.5rem' }}>
                     🐛 Bugs
@@ -183,7 +183,7 @@ const History = () => {
                   ))}
                 </div>
 
-                {/* Suggestions */}
+               
                 <div style={{ marginBottom: '1rem' }}>
                   <h4 style={{ color: '#3fb950', fontSize: '0.9rem', marginBottom: '0.5rem' }}>
                     💡 Suggestions
@@ -205,7 +205,7 @@ const History = () => {
                   ))}
                 </div>
 
-                {/* Code snippet */}
+                
                 <div>
                   <h4 style={{ color: '#8b949e', fontSize: '0.9rem', marginBottom: '0.5rem' }}>
                     📄 Code
