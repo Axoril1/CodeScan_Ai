@@ -1,6 +1,18 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
+  const location = useLocation();
+
+  const linkStyle = (path) => ({
+    color: location.pathname === path ? '#58a6ff' : '#8b949e',
+    textDecoration: 'none',
+    fontSize: '0.95rem',
+    fontWeight: location.pathname === path ? 600 : 400,
+    borderBottom: location.pathname === path ? '2px solid #58a6ff' : '2px solid transparent',
+    paddingBottom: '2px',
+    transition: 'all 0.2s ease',
+  });
+
   return (
     <nav style={{
       background: '#161b22',
@@ -14,18 +26,15 @@ const Navbar = () => {
       top: 0,
       zIndex: 100,
     }}>
-      <Link to="/" style={{ textDecoration: 'none' }}>
-        <h1 style={{ fontSize: '1.3rem', fontWeight: 700, color: '#58a6ff' }}>
-          🔍 CodeScan AI
+      <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+        <span style={{ fontSize: '1.4rem' }}>🔍</span>
+        <h1 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#58a6ff' }}>
+          CodeScan <span style={{ color: '#e6edf3' }}>AI</span>
         </h1>
       </Link>
       <div style={{ display: 'flex', gap: '1.5rem' }}>
-        <Link to="/" style={{ color: '#e6edf3', textDecoration: 'none', fontSize: '0.95rem' }}>
-          Home
-        </Link>
-        <Link to="/history" style={{ color: '#8b949e', textDecoration: 'none', fontSize: '0.95rem' }}>
-          History
-        </Link>
+        <Link to="/" style={linkStyle('/')}>Home</Link>
+        <Link to="/history" style={linkStyle('/history')}>History</Link>
       </div>
     </nav>
   );

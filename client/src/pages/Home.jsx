@@ -5,6 +5,16 @@ import ResultCard from '../components/ResultCard';
 
 const LANGUAGES = ['javascript', 'python', 'java', 'cpp', 'typescript', 'go', 'rust'];
 
+const LoadingSkeleton = () => (
+  <div style={{ background: '#161b22', border: '1px solid #30363d', borderRadius: '12px', padding: '1.5rem', marginTop: '1.5rem' }}>
+    <div className="pulse" style={{ background: '#21262d', height: '20px', borderRadius: '6px', marginBottom: '1rem', width: '40%' }} />
+    <div className="pulse" style={{ background: '#21262d', height: '10px', borderRadius: '6px', marginBottom: '0.5rem' }} />
+    <div className="pulse" style={{ background: '#21262d', height: '10px', borderRadius: '6px', marginBottom: '1.5rem', width: '70%' }} />
+    <div className="pulse" style={{ background: '#21262d', height: '60px', borderRadius: '6px', marginBottom: '0.75rem' }} />
+    <div className="pulse" style={{ background: '#21262d', height: '60px', borderRadius: '6px' }} />
+  </div>
+);
+
 const Home = () => {
   const [code, setCode] = useState('// Paste your code here...');
   const [language, setLanguage] = useState('javascript');
@@ -38,16 +48,19 @@ const Home = () => {
 
   return (
     <div style={{ maxWidth: '900px', margin: '0 auto', padding: '2rem 1rem' }}>
+
+      {/* Header */}
       <div style={{ marginBottom: '1.5rem' }}>
-        <h2 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '0.4rem' }}>
+        <h2 style={{ fontSize: '1.6rem', fontWeight: 700, marginBottom: '0.4rem' }}>
           Code Analyzer
         </h2>
         <p style={{ color: '#8b949e', fontSize: '0.9rem' }}>
-          Paste your code below and get instant AI-powered feedback.
+          Paste your code and get instant AI-powered feedback on bugs, suggestions, and quality.
         </p>
       </div>
 
-      <div style={{ display: 'flex', gap: '0.75rem', marginBottom: '1rem', flexWrap: 'wrap' }}>
+      {/* Controls */}
+      <div style={{ display: 'flex', gap: '0.75rem', marginBottom: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>
         <select
           value={language}
           onChange={(e) => setLanguage(e.target.value)}
@@ -61,9 +74,7 @@ const Home = () => {
             cursor: 'pointer',
           }}
         >
-          {LANGUAGES.map((lang) => (
-            <option key={lang} value={lang}>{lang}</option>
-          ))}
+          {LANGUAGES.map((lang) => <option key={lang} value={lang}>{lang}</option>)}
         </select>
 
         <button
@@ -71,17 +82,23 @@ const Home = () => {
           disabled={loading}
           style={{
             background: loading ? '#21262d' : '#238636',
-            color: '#fff',
+            color: loading ? '#8b949e' : '#fff',
             border: 'none',
             borderRadius: '6px',
             padding: '0.5rem 1.25rem',
             fontSize: '0.9rem',
             cursor: loading ? 'not-allowed' : 'pointer',
             fontWeight: 600,
-            transition: 'background 0.2s',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.4rem',
           }}
         >
-          {loading ? '⏳ Analyzing...' : '🔍 Analyze Code'}
+          {loading ? (
+            <><span className="pulse">⏳</span> Analyzing...</>
+          ) : (
+            '🔍 Analyze Code'
+          )}
         </button>
 
         <button
@@ -96,13 +113,35 @@ const Home = () => {
             cursor: 'pointer',
           }}
         >
-          Clear
+          🗑️ Clear
         </button>
+
+        {result && (
+          <span style={{ color: '#3fb950', fontSize: '0.85rem', marginLeft: 'auto' }}>
+            ✅ Analysis complete
+          </span>
+        )}
       </div>
 
+      {/* Editor */}
       <div style={{ border: '1px solid #30363d', borderRadius: '8px', overflow: 'hidden' }}>
+        <div style={{
+          background: '#161b22',
+          padding: '0.4rem 1rem',
+          borderBottom: '1px solid #30363d',
+          fontSize: '0.8rem',
+          color: '#8b949e',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.5rem',
+        }}>
+          <span style={{ color: '#f85149' }}>●</span>
+          <span style={{ color: '#d29922' }}>●</span>
+          <span style={{ color: '#3fb950' }}>●</span>
+          <span style={{ marginLeft: '0.5rem' }}>{language}</span>
+        </div>
         <Editor
-          height="380px"
+          height="360px"
           language={language}
           value={code}
           onChange={(val) => setCode(val)}
@@ -112,10 +151,13 @@ const Home = () => {
             minimap: { enabled: false },
             scrollBeyondLastLine: false,
             padding: { top: 12 },
+            lineNumbers: 'on',
+            renderLineHighlight: 'line',
           }}
         />
       </div>
 
+      {/* Error */}
       {error && (
         <div style={{
           marginTop: '1rem',
@@ -126,11 +168,20 @@ const Home = () => {
           color: '#f85149',
           fontSize: '0.9rem',
         }}>
-          {error}
+          ⚠️ {error}
         </div>
       )}
 
-      <ResultCard result={result} />
+      {/* Loading skeleton */}
+      {loading && <LoadingSkeleton />}
+
+      {/* Result */}
+      {!loading && result && (
+        <div className="fade-in">
+          <ResultCard result={result} />
+        </div>
+      )}
+
     </div>
   );
 };
