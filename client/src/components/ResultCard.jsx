@@ -1,4 +1,7 @@
 import ScoreBar from './ScoreBar';
+import { GiBugNet, GiScrollUnfurled, GiLightningTrio } from 'react-icons/gi';
+import { FaLightbulb, FaCheckCircle } from 'react-icons/fa';
+import { MdOutlineSpeed } from 'react-icons/md';
 
 const ResultCard = ({ result }) => {
   if (!result) return null;
@@ -28,15 +31,18 @@ const ResultCard = ({ result }) => {
         flexWrap: 'wrap',
         gap: '0.5rem',
       }}>
-        <span style={{ fontFamily: "'Cinzel', serif", color: '#ffe066', fontWeight: 700, fontSize: '0.9rem', letterSpacing: '1px' }}>
-          🐉 DRAGON SCROLL ANALYSIS
+        <span style={{ fontFamily: "'Cinzel', serif", color: '#ffe066', fontWeight: 700, fontSize: '0.9rem', letterSpacing: '1px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <GiScrollUnfurled size={18} color="#ffe066" />
+          DRAGON SCROLL ANALYSIS
         </span>
         <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-          <span style={{ background: cc.bg, border: `1px solid ${cc.border}`, borderRadius: '4px', padding: '2px 10px', fontSize: '0.75rem', fontWeight: 800, color: cc.text, letterSpacing: '0.5px' }}>
+          <span style={{ background: cc.bg, border: `1px solid ${cc.border}`, borderRadius: '4px', padding: '2px 10px', fontSize: '0.75rem', fontWeight: 800, color: cc.text, letterSpacing: '0.5px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+            <MdOutlineSpeed size={13} />
             {complexity.toUpperCase()} COMPLEXITY
           </span>
-          <span style={{ background: 'rgba(200,56,10,0.2)', border: '1px solid #c8380a', borderRadius: '4px', padding: '2px 10px', fontSize: '0.75rem', fontWeight: 800, color: '#ff7050', letterSpacing: '0.5px' }}>
-            🐛 {bugs.length} BUG{bugs.length !== 1 ? 'S' : ''}
+          <span style={{ background: 'rgba(200,56,10,0.2)', border: '1px solid #c8380a', borderRadius: '4px', padding: '2px 10px', fontSize: '0.75rem', fontWeight: 800, color: '#ff7050', letterSpacing: '0.5px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+            <GiBugNet size={13} />
+            {bugs.length} BUG{bugs.length !== 1 ? 'S' : ''}
           </span>
         </div>
       </div>
@@ -59,17 +65,17 @@ const ResultCard = ({ result }) => {
           fontWeight: 600,
           fontStyle: 'italic',
         }}>
-          🥢 "{summary}"
+          "{summary}"
         </div>
 
         {/* Bugs */}
         <div style={{ marginBottom: '1.2rem' }}>
-          <h3 style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', color: '#c8380a', marginBottom: '0.6rem' }}>
-            ⚡ Bugs Found
+          <h3 style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', color: '#c8380a', marginBottom: '0.6rem', display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <GiLightningTrio size={14} color="#c8380a" /> Bugs Found
           </h3>
           {bugs.length === 0 ? (
-            <div style={{ borderLeft: '3px solid #00a650', padding: '8px 12px', background: 'rgba(0,166,80,0.08)', borderRadius: '0 4px 4px 0', fontSize: '0.85rem', color: '#50d080', fontWeight: 700 }}>
-              ✅ No bugs! The Dragon Warrior approves.
+            <div style={{ borderLeft: '3px solid #00a650', padding: '8px 12px', background: 'rgba(0,166,80,0.08)', borderRadius: '0 4px 4px 0', fontSize: '0.85rem', color: '#50d080', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <FaCheckCircle size={13} /> No bugs! The Dragon Warrior approves.
             </div>
           ) : bugs.map((bug, i) => (
             <div key={i} style={{
@@ -90,12 +96,12 @@ const ResultCard = ({ result }) => {
 
         {/* Suggestions */}
         <div>
-          <h3 style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', color: '#00a650', marginBottom: '0.6rem' }}>
-            🎋 Master Shifu's Suggestions
+          <h3 style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', color: '#00a650', marginBottom: '0.6rem', display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <FaLightbulb size={13} color="#00a650" /> Master Shifu's Suggestions
           </h3>
           {suggestions.length === 0 ? (
             <div style={{ borderLeft: '3px solid #c8860a', padding: '8px 12px', background: 'rgba(200,134,10,0.08)', borderRadius: '0 4px 4px 0', fontSize: '0.85rem', color: '#c8860a', fontWeight: 700 }}>
-              No suggestions. Skadoosh! 🥋
+              No suggestions.
             </div>
           ) : suggestions.map((s, i) => (
             <div key={i} style={{

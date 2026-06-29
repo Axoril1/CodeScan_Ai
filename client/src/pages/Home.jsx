@@ -1,15 +1,18 @@
-
 import { useState } from 'react';
 import Editor from '@monaco-editor/react';
 import axios from 'axios';
 import ResultCard from '../components/ResultCard';
+import { FiCode, FiTrash2 } from 'react-icons/fi';
+import { GiScrollUnfurled } from 'react-icons/gi';
+import { BiLoaderAlt } from 'react-icons/bi';
+import { MdOutlineDoneAll } from 'react-icons/md';
 
 const LANGUAGES = ['javascript', 'python', 'java', 'cpp', 'typescript', 'go', 'rust'];
 
 const LoadingSkeleton = () => (
   <div className="dragon-border" style={{ background: '#0d0500', padding: '1.5rem', marginTop: '1.5rem' }}>
-    <p className="pulse" style={{ color: '#c8860a', fontWeight: 800, fontSize: '0.9rem', letterSpacing: '1px', textAlign: 'center' }}>
-      🐼 Po is reviewing your code... Skadoosh!
+    <p className="pulse" style={{ color: '#c8860a', fontWeight: 800, fontSize: '0.9rem', letterSpacing: '1px', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+      <BiLoaderAlt size={16} /> Po is reviewing your code...
     </p>
     {[100, 70, 100, 60].map((w, i) => (
       <div key={i} className="pulse" style={{ background: 'rgba(200,134,10,0.1)', border: '1px solid rgba(200,134,10,0.2)', height: '14px', borderRadius: '4px', marginTop: '0.75rem', width: `${w}%` }} />
@@ -33,7 +36,7 @@ const Home = () => {
     setError('');
     setResult(null);
     try {
-      const res = await axios.post('http://localhost:5000/api/scan', { code, language });
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/scan`, { code, language });
       setResult(res.data.data.result);
     } catch (err) {
       setError('Something went wrong. Make sure the server is running.');
@@ -59,17 +62,19 @@ const Home = () => {
         position: 'relative',
         overflow: 'hidden',
       }}>
-        <div style={{ position: 'absolute', right: '-10px', top: '-10px', fontSize: '5rem', opacity: 0.06, transform: 'rotate(15deg)', pointerEvents: 'none' }}>🐉</div>
+        <div style={{ position: 'absolute', right: '-10px', top: '-10px', fontSize: '8rem', opacity: 0.04, pointerEvents: 'none' }}>
+          <GiScrollUnfurled size={160} color="#ffe066" />
+        </div>
         <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '4px', background: 'linear-gradient(180deg, #ffe066, #c8860a, #ffe066)' }} />
         <div style={{ paddingLeft: '1rem' }}>
           <p style={{ fontSize: '0.65rem', color: '#c8860a', fontWeight: 800, letterSpacing: '3px', textTransform: 'uppercase', marginBottom: '6px' }}>
-            ⚡ The Dragon Scroll of Code Review
+            The Dragon Scroll of Code Review
           </p>
           <h2 style={{ fontFamily: "'Cinzel', serif", fontSize: '1.4rem', fontWeight: 900, color: '#ffe066', lineHeight: 1.3, marginBottom: '6px', textShadow: '0 0 10px rgba(255,200,50,0.3)' }}>
             There is no secret ingredient.<br />Your code just needs review.
           </h2>
           <p style={{ fontSize: '0.88rem', color: '#d4a050', fontWeight: 600 }}>
-            Paste your code and let the Dragon Warrior find the bugs. 🥢
+            Paste your code and let the Dragon Warrior find the bugs.
           </p>
         </div>
       </div>
@@ -92,7 +97,11 @@ const Home = () => {
             cursor: 'pointer',
           }}
         >
-          {LANGUAGES.map((lang) => <option key={lang} value={lang} style={{ background: '#1a0a00' }}>⚔️ {lang.toUpperCase()}</option>)}
+          {LANGUAGES.map((lang) => (
+            <option key={lang} value={lang} style={{ background: '#1a0a00' }}>
+              {lang.toUpperCase()}
+            </option>
+          ))}
         </select>
 
         <button
@@ -109,9 +118,13 @@ const Home = () => {
             letterSpacing: '1px',
             textTransform: 'uppercase',
             cursor: loading ? 'not-allowed' : 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
           }}
         >
-          {loading ? '🐼 Analyzing...' : '🔍 Analyze Code'}
+          <FiCode size={15} />
+          {loading ? 'Analyzing...' : 'Analyze Code'}
         </button>
 
         <button
@@ -125,9 +138,12 @@ const Home = () => {
             fontSize: '0.85rem',
             fontWeight: 800,
             letterSpacing: '1px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
           }}
         >
-          🥢 Clear
+          <FiTrash2 size={14} /> Clear
         </button>
 
         {result && (
@@ -141,8 +157,11 @@ const Home = () => {
             fontWeight: 800,
             color: '#50d080',
             letterSpacing: '0.5px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '6px',
           }}>
-            ✅ Skadoosh!
+            <MdOutlineDoneAll size={15} /> Analysis Complete
           </span>
         )}
       </div>
@@ -161,7 +180,7 @@ const Home = () => {
           <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#ffe066', border: '1px solid rgba(255,255,255,0.1)', display: 'inline-block' }} />
           <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#00a650', border: '1px solid rgba(255,255,255,0.1)', display: 'inline-block' }} />
           <span style={{ color: '#c8860a', fontSize: '0.72rem', fontWeight: 800, letterSpacing: '2px', marginLeft: '6px', fontFamily: "'JetBrains Mono', monospace" }}>
-            ⚔️ SCROLL OF {language.toUpperCase()}
+            SCROLL OF {language.toUpperCase()}
           </span>
         </div>
         <Editor
@@ -192,7 +211,7 @@ const Home = () => {
           fontWeight: 700,
           color: '#ff7050',
         }}>
-          ⚠️ {error}
+          {error}
         </div>
       )}
 

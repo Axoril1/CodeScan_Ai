@@ -1,4 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
+import { GiPanda } from 'react-icons/gi';
+import { FaHome, FaHistory } from 'react-icons/fa';
 
 const Navbar = () => {
   const location = useLocation();
@@ -14,6 +16,9 @@ const Navbar = () => {
     borderRadius: '4px',
     background: location.pathname === path ? 'rgba(200,134,10,0.15)' : 'transparent',
     color: location.pathname === path ? '#ffe066' : '#c8860a',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '6px',
     transition: 'all 0.2s ease',
   });
 
@@ -32,7 +37,7 @@ const Navbar = () => {
       boxShadow: '0 2px 20px rgba(200,134,10,0.2)',
     }}>
       <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '12px' }}>
-        <span style={{ fontSize: '1.8rem' }}>🐼</span>
+        <GiPanda size={32} color="#ffe066" />
         <div>
           <h1 style={{ fontFamily: "'Cinzel', serif", fontSize: '1.1rem', fontWeight: 900, color: '#ffe066', letterSpacing: '2px', lineHeight: 1, textShadow: '0 0 10px rgba(255,200,50,0.4)' }}>
             CODESCAN
@@ -43,8 +48,12 @@ const Navbar = () => {
         </div>
       </Link>
       <div style={{ display: 'flex', gap: '8px' }}>
-        <Link to="/" style={linkStyle('/')}>HOME</Link>
-        <Link to="/history" style={linkStyle('/history')}>HISTORY</Link>
+        <Link to="/" style={linkStyle('/')}>
+          <FaHome size={13} /> HOME
+        </Link>
+        <Link to="/history" style={linkStyle('/history')}>
+          <FaHistory size={13} /> HISTORY
+        </Link>
       </div>
     </nav>
   );
