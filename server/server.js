@@ -5,17 +5,27 @@ const connectDB = require('./config/db');
 const scanRoutes = require('./routes/scanRoutes');
 const { initializeApp, cert } = require('firebase-admin/app');
 
-const privateKey = process.env.FIREBASE_PRIVATE_KEY
-  ? process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n').replace(/"/g, '')
-  : undefined;
+let firebaseInitialized = false;
 
-initializeApp({
-  credential: cert({
-    projectId: process.env.FIREBASE_PROJECT_ID,
-    clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-    privateKey: privateKey,
-  }),
-});
+try {
+  let privateKey = process.env.FIREBASE_PRIVATE_KEY || '';
+  // Remove surrounding quotes if present
+  privateKey = privateKey.replace(/^"(.*)"$/, '$1');
+  // Replace literal \n with actual newlines
+  privateKey = privateKey.replace(/\\n/g, '\n');
+
+  initializeApp({
+    credential: cert({
+      projectId: process.env.FIREBASE_PROJECT_ID,
+      clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+      privateKey: privateKey,
+    }),
+  });
+  firebaseInitialized = true;
+  console.log('Firebase Admin initialized');
+} catch (err) {
+  console.error('Firebase init error:', err.message);
+}
 
 connectDB();
 
