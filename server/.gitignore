@@ -1,4 +1,4 @@
 node_modules/
 .env
 client/dist
-.DS_Store
+.DS_StoreserviceAccount.json

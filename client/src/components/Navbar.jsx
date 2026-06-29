@@ -1,9 +1,17 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { GiPanda } from 'react-icons/gi';
-import { FaHome, FaHistory } from 'react-icons/fa';
+import { FaHome, FaHistory, FaSignOutAlt } from 'react-icons/fa';
+import { useAuth } from '../context/AuthContext';
 
 const Navbar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user, logout } = useAuth();
+
+  const handleLogout = async () => {
+    await logout();
+    navigate('/login');
+  };
 
   const linkStyle = (path) => ({
     textDecoration: 'none',
@@ -47,13 +55,59 @@ const Navbar = () => {
           </p>
         </div>
       </Link>
-      <div style={{ display: 'flex', gap: '8px' }}>
+
+      <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
         <Link to="/" style={linkStyle('/')}>
           <FaHome size={13} /> HOME
         </Link>
-        <Link to="/history" style={linkStyle('/history')}>
-          <FaHistory size={13} /> HISTORY
-        </Link>
+        {user && (
+          <Link to="/history" style={linkStyle('/history')}>
+            <FaHistory size={13} /> HISTORY
+          </Link>
+        )}
+        {user ? (
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginLeft: '8px' }}>
+            <img
+              src={user.photoURL}
+              alt={user.displayName}
+              style={{ width: '30px', height: '30px', borderRadius: '50%', border: '2px solid #c8860a' }}
+            />
+            <button
+              onClick={handleLogout}
+              style={{
+                background: 'transparent',
+                color: '#c8860a',
+                border: '1px solid rgba(200,134,10,0.4)',
+                borderRadius: '4px',
+                padding: '6px 12px',
+                fontSize: '0.78rem',
+                fontWeight: 800,
+                letterSpacing: '1px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                cursor: 'pointer',
+              }}
+            >
+              <FaSignOutAlt size={12} /> LOGOUT
+            </button>
+          </div>
+        ) : (
+          <Link to="/login" style={{
+            textDecoration: 'none',
+            fontSize: '0.82rem',
+            fontWeight: 800,
+            letterSpacing: '1px',
+            padding: '6px 16px',
+            border: '1px solid #c8860a',
+            borderRadius: '4px',
+            background: 'rgba(200,134,10,0.15)',
+            color: '#ffe066',
+            marginLeft: '8px',
+          }}>
+            LOGIN
+          </Link>
+        )}
       </div>
     </nav>
   );
