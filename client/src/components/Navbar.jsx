@@ -15,10 +15,10 @@ const Navbar = () => {
 
   const linkStyle = (path) => ({
     textDecoration: 'none',
-    fontSize: '0.82rem',
+    fontSize: '0.8rem',
     fontWeight: 800,
     letterSpacing: '1px',
-    padding: '6px 16px',
+    padding: '6px 12px',
     border: '1px solid',
     borderColor: location.pathname === path ? '#c8860a' : 'rgba(200,134,10,0.3)',
     borderRadius: '4px',
@@ -27,15 +27,13 @@ const Navbar = () => {
     display: 'flex',
     alignItems: 'center',
     gap: '6px',
-    transition: 'all 0.2s ease',
+    whiteSpace: 'nowrap',
   });
 
   return (
-    <nav style={{
+    <nav className="navbar" style={{
       background: 'linear-gradient(180deg, #2d1200 0%, #1a0a00 100%)',
       borderBottom: '2px solid #c8860a',
-      padding: '0 2rem',
-      height: '64px',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
@@ -43,34 +41,35 @@ const Navbar = () => {
       top: 0,
       zIndex: 100,
       boxShadow: '0 2px 20px rgba(200,134,10,0.2)',
+      overflow: 'hidden',
     }}>
-      <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '12px' }}>
-        <GiPanda size={32} color="#ffe066" />
-        <div>
-          <h1 style={{ fontFamily: "'Cinzel', serif", fontSize: '1.1rem', fontWeight: 900, color: '#ffe066', letterSpacing: '2px', lineHeight: 1, textShadow: '0 0 10px rgba(255,200,50,0.4)' }}>
+      <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px', minWidth: 0 }}>
+        <GiPanda size={28} color="#ffe066" style={{ flexShrink: 0 }} />
+        <div className="navbar-text-group" style={{ minWidth: 0 }}>
+          <h1 className="navbar-title" style={{ fontFamily: "'Cinzel', serif", fontWeight: 900, color: '#ffe066', letterSpacing: '1px', lineHeight: 1, textShadow: '0 0 10px rgba(255,200,50,0.4)', whiteSpace: 'nowrap' }}>
             CODESCAN
           </h1>
-          <p style={{ fontSize: '0.55rem', color: '#c8860a', fontWeight: 800, letterSpacing: '2px', lineHeight: 1, marginTop: '2px' }}>
+          <p className="navbar-subtitle" style={{ fontSize: '0.55rem', color: '#c8860a', fontWeight: 800, letterSpacing: '1.5px', lineHeight: 1, marginTop: '2px', whiteSpace: 'nowrap' }}>
             THE DRAGON WARRIOR CODE REVIEWER
           </p>
         </div>
       </Link>
 
-      <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+      <div style={{ display: 'flex', gap: '6px', alignItems: 'center', flexShrink: 0 }}>
         <Link to="/" style={linkStyle('/')}>
-          <FaHome size={13} /> HOME
+          <FaHome size={12} /> <span className="nav-links"><span>HOME</span></span>
         </Link>
         {user && (
           <Link to="/history" style={linkStyle('/history')}>
-            <FaHistory size={13} /> HISTORY
+            <FaHistory size={12} /> <span className="nav-links"><span>HISTORY</span></span>
           </Link>
         )}
         {user ? (
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginLeft: '8px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginLeft: '4px' }}>
             <img
               src={user.photoURL}
               alt={user.displayName}
-              style={{ width: '30px', height: '30px', borderRadius: '50%', border: '2px solid #c8860a' }}
+              style={{ width: '28px', height: '28px', borderRadius: '50%', border: '2px solid #c8860a', flexShrink: 0 }}
             />
             <button
               onClick={handleLogout}
@@ -79,31 +78,32 @@ const Navbar = () => {
                 color: '#c8860a',
                 border: '1px solid rgba(200,134,10,0.4)',
                 borderRadius: '4px',
-                padding: '6px 12px',
-                fontSize: '0.78rem',
+                padding: '6px 10px',
+                fontSize: '0.75rem',
                 fontWeight: 800,
-                letterSpacing: '1px',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '6px',
+                gap: '4px',
                 cursor: 'pointer',
+                whiteSpace: 'nowrap',
               }}
             >
-              <FaSignOutAlt size={12} /> LOGOUT
+              <FaSignOutAlt size={11} /> <span className="nav-links">LOGOUT</span>
             </button>
           </div>
         ) : (
           <Link to="/login" style={{
             textDecoration: 'none',
-            fontSize: '0.82rem',
+            fontSize: '0.8rem',
             fontWeight: 800,
             letterSpacing: '1px',
-            padding: '6px 16px',
+            padding: '6px 14px',
             border: '1px solid #c8860a',
             borderRadius: '4px',
             background: 'rgba(200,134,10,0.15)',
             color: '#ffe066',
-            marginLeft: '8px',
+            marginLeft: '4px',
+            whiteSpace: 'nowrap',
           }}>
             LOGIN
           </Link>

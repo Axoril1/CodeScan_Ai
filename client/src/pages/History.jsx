@@ -74,19 +74,19 @@ const History = () => {
   };
 
   if (loading) return (
-    <div style={{ maxWidth: '900px', margin: '0 auto', padding: '2rem 1rem', color: '#c8860a', fontWeight: 800 }} className="pulse">
+    <div style={{ maxWidth: '900px', margin: '0 auto', padding: '2rem 1rem', width: '100%', boxSizing: 'border-box', color: '#c8860a', fontWeight: 800 }} className="pulse">
       Fetching the ancient scrolls...
     </div>
   );
 
   if (error) return (
-    <div style={{ maxWidth: '900px', margin: '0 auto', padding: '2rem 1rem', color: '#ff7050', fontWeight: 800 }}>
+    <div style={{ maxWidth: '900px', margin: '0 auto', padding: '2rem 1rem', width: '100%', boxSizing: 'border-box', color: '#ff7050', fontWeight: 800 }}>
       {error}
     </div>
   );
 
   return (
-    <div style={{ maxWidth: '900px', margin: '0 auto', padding: '2rem 1rem' }}>
+    <div style={{ maxWidth: '900px', margin: '0 auto', padding: '2rem 1rem', width: '100%', boxSizing: 'border-box' }}>
 
       <div className="dragon-border" style={{
         background: 'linear-gradient(135deg, #2d1200, #1a0800)',

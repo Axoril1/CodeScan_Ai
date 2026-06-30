@@ -58,3 +58,78 @@ button:active:not(:disabled) {
   border-radius: 6px;
   box-shadow: 0 0 12px rgba(200,134,10,0.15);
 }
+
+/* ============ RESPONSIVE LAYOUT ============ */
+.page-container {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.navbar {
+  padding: 0 2rem;
+  height: 64px;
+}
+
+.navbar-title {
+  font-size: 1.1rem;
+}
+
+.navbar-subtitle {
+  display: block;
+}
+
+.controls-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.hero-title {
+  font-size: 1.4rem;
+}
+
+@media (max-width: 768px) {
+  .page-container {
+    padding: 1rem 0.75rem;
+  }
+
+  .navbar {
+    padding: 0 1rem;
+    height: 58px;
+  }
+
+  .navbar-title {
+    font-size: 0.95rem;
+  }
+
+  .navbar-subtitle {
+    display: none;
+  }
+
+  .hero-title {
+    font-size: 1.1rem !important;
+  }
+
+  .nav-links span {
+    display: none;
+  }
+
+  .controls-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .controls-row > * {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar-text-group {
+    display: none;
+  }
+}

@@ -129,7 +129,7 @@ const Home = () => {
   };
 
   return (
-    <div style={{ maxWidth: '920px', margin: '0 auto', padding: '2rem 1rem' }}>
+    <div style={{ maxWidth: '920px', margin: '0 auto', padding: '2rem 1rem', width: '100%', boxSizing: 'border-box' }}>
       {showModal && <GuestLimitModal onLogin={handleLoginFromModal} />}
 
       {/* Hero */}
